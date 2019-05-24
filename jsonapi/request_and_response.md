@@ -201,6 +201,12 @@ BidRequest 请求是广告位请求广告的入口，由 SSP|ADX 按本文档中
 | dpidmd5 | string | Android Id，使用MD5 进行哈希 |
 | macsha1 | string | MAC 地址，使用SHA1 进行哈希 |
 | macmd5 | string | MAC 地址，使用MD5 进行哈希 |
+| ext | object  | 扩展对象 |
+
+##### Video.Ext 对象
+
+| 字段名称 | 类型  | 描述 |
+| --- | --- | --- |
 | imei | string | Android 设备的 IMEI 值 |
 | idfa | string | iOS 设备必填，IDFA 值 |
 | idfv | string | iOS 设备必填，IDFV 值 |
