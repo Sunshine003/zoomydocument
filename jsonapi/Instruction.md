@@ -19,8 +19,13 @@
 5. 正式上线对接
 
     沟通确认没问题后，开始正式上线。
+    
+    **家族**
+    
+    <span style="color:red;">这是比font标签更好的方式。可以试试。</span>
+    
     ```html
-         <span style="color:red;">这是比font标签更好的方式。可以试试。</span>
+         <span style="color:red;">这是比font标签*___~~~~**``````**~~~~___*更好的方式。可以试试。</span>
         
         浅红色文字：<font color="#dd0000">浅红色文字：</font><br /> 
         
