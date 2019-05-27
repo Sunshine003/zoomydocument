@@ -73,7 +73,7 @@ BidRequest 请求是广告位请求广告的入口，由 SSP|ADX 按本文档中
 | video | object  | 视频广告描述信息 |
 | auido | object  | 音频广告描述信息 |
 | native | object  | 原生广告描述信息 |
-| instl | integer  | 广告位类型<br>0- 插屏,开屏<br>1- 非插屏; banner对象必填 |
+| instl | integer  | 广告位类型， banner对象必填<br>0- 插屏,开屏<br>1- 非插屏 |
 | tagid | string;required  | 广告位id |
 | secure | integer  | 是否支持 https 链接的标识，默认为 0<br>0- 只支持http协议<br>1- 只支持https协议<br>2-http,https协议都支持 |
 | ext | object  | 扩展对象 |
@@ -129,7 +129,7 @@ BidRequest 请求是广告位请求广告的入口，由 SSP|ADX 按本文档中
 
 | 字段名称 | 类型  | 描述 |
 | --- | --- | --- |
-| mimes   | string array | 支持的广告素材MIME 类型，如果没有任何值或缺省，则表示没有类型限制。取值参见:广告物料MIMES |
+| mimes   | string array | 支持的广告素材MIME 类型，如果没有任何值或缺省，则表示没有类型限制 |
 | api   | integer array   | 建议返回广告素材的高度广告位支持的API 框架标准，如果没有任何值或缺省，则表示不支持任何API框架。取值参见:API Frameworks。 |
 | minduration | integer | 支持的最小音频时长，单位: 秒 |
 | maxduration | integer | 支持的最大音频时长，单位: 秒 |
@@ -469,7 +469,7 @@ BidRequest 请求是广告位请求广告的入口，由 SSP|ADX 按本文档中
 | 12 | ctatext | CTA描述 - 描述落地页URL的“号召性用语”按钮的描述性文本;  text |
 | 500+ | XXX | Reserved for Exchange specific usage numbered above 500 |
 
-####原生广告布局IDs
+#### 原生广告布局IDs
 [原生广告布局图](nativelayout.md)
 
 | Value | Decription  |
