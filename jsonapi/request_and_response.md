@@ -470,7 +470,7 @@ BidRequest 请求是广告位请求广告的入口，由 SSP|ADX 按本文档中
 | 500+ | XXX | Reserved for Exchange specific usage numbered above 500 |
 
 #### 原生广告布局IDs
-[原生广告布局图](nativelayout.md)
+[原生广告布局图参考示例](nativelayout.md)
 
 | Value | Decription  |
 | --- | --- |
