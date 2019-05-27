@@ -6,18 +6,18 @@
     - [接入说明](#接入说明)
         - [请求 URL](#请求-url)
         - [通信方式及编码](#通信方式及编码)
-        - [广告请求](#广告请求)
-            - [请求头](#请求头)
-            - [AdRequest 字段信息](#adrequest-字段信息)
-                - [imp 对象信息](#imp-对象信息)
-                - [app 对象信息](#app-对象信息)
-                - [device 对象信息](#device-对象信息)
-                - [user 对象信息](#user-对象信息)
-        - [广告返回](#广告返回)
-            - [AdResponse 字段信息](#adresponse-字段信息)
-                - [seatbid 对象信息](#seatbid-对象信息)
-                    - [bid 对象信息](#bid-对象信息)
-            - [素材格式](#素材格式)
+        - [广告请求](#BidRequest规范)
+            - [请求头](#Http请求头设置)
+            - [AdRequest 字段信息](#BidRequest对象)
+                - [imp 对象信息](#Imp对象)
+                - [app 对象信息](#App对象)
+                - [publisher 对象信息](#Publisher对象)
+                - [device 对象信息](#Device对象)
+                - [user 对象信息](#User对象)
+        - [广告返回](#BidResponse规范)
+            - [AdResponse 字段信息](#AdResponse对象)
+                - [seatbid 对象信息](#SeatBid对象)
+                    - [bid 对象信息](#Bid对象)
             - [上报地址宏替换信息](#上报地址宏替换信息)
             - [不填充广告原因](#不填充广告原因)
 
@@ -33,24 +33,24 @@
 
 ### 请求 URL
 
-当需要请求广告时，发送一个 HTTP POST 请求到下面的地址`http://adx.advlion.com/ssp`
+当需要请求广告时，发送一个 HTTP POST 请求到下面的地址`http://hostname.com/dsp`
 
 ### 通信方式及编码
 
 ADX 和 开发者（SSP） 之间的基础通信协议采用 HTTP 协议、POST 方法，数据使用 JSON 格式，编码采用 UTF-8 编码。
 
-### BidRequest 规范
+### BidRequest规范
 
 BidRequest 请求是广告位请求广告的入口，由 SSP|ADX 按本文档中规定 URL 向 DSP 发送。
 
-#### Http 请求头设置
+#### Http请求头设置
 
-######JSON 数据格式
+###### JSON数据格式
 
  - Content-Type:application/json
  - X-Protocol-Ver:1.0
 
-#### BidRequest 对象
+#### BidRequest对象
 
 | 字段名称 | 类型 |  描述 |
 | --- | --- |  --- |
@@ -60,11 +60,11 @@ BidRequest 请求是广告位请求广告的入口，由 SSP|ADX 按本文档中
 | app | object | APP 信息, App流量必须 |
 | device | object | 设备信息 |
 | user | object | 用户信息 |
-| bcat | string array | 拒绝投放的广告行业类型名单 |
+| bcat | string array | 拒绝投放的广告行业类型名单，取值参考[content内容](content.md) |
 | badv | string array | 广告主黑名单，采用域名标注广告主 |
 | bapp | string array | 拒绝的应用名单。Android 采用bundle 或package names 标识;IOS 采用numeric IDs |
 
-##### Imp 对象
+##### Imp对象
 
 | 字段名称 | 类型  | 描述 |
 | --- | --- | --- |
@@ -78,7 +78,7 @@ BidRequest 请求是广告位请求广告的入口，由 SSP|ADX 按本文档中
 | secure | integer  | 是否支持 https 链接的标识，默认为 0<br>0- 只支持http协议<br>1- 只支持https协议<br>2-http,https协议都支持 |
 | ext | object  | 扩展对象 |
 
-##### Imp.Ext 对象
+##### Imp.Ext对象
 
 | 字段名称 | 类型  | 描述 |
 | --- | --- | --- |
@@ -86,19 +86,19 @@ BidRequest 请求是广告位请求广告的入口，由 SSP|ADX 按本文档中
 | dl_support_status | integer  | download支持状态<br>0: 不支持<br>1: 支持 |
 | dp_support_status | integer  | deeplink支持状态<br>0: 不支持任何形式的deeplink<br>1: 支持原生deeplink链接直接跳转<br>2: 支持进入H5落地页后跳转deeplink |
 
-##### Banner 对象
+##### Banner对象
 
 | 字段名称 | 类型  | 描述 |
 | --- | --- | --- |
 | w   | integer | 建议返回广告素材的宽度 |
 | h   | integer   | 建议返回广告素材的高度 |
-| btype| string array | 拒绝投放的图片素材类型，取值参见:图片素材类型 |
-| mimes| string array  | 支持的广告素材MIME类型，如果没有任何值或缺省，则表示没有类型限制。取值参见:广告物料MIMES |
-| api| integer array  | 广告位支持的API 框架标准，如果没有任何值或缺省，则表示不支持任何API框架。取值参见:API Frameworks。 |
+| btype| integer array | 拒绝投放的图片素材类型，取值参见:[图片素材类型](#图片素材类型) |
+| mimes| string array  | 支持的广告素材MIME类型，如果没有任何值或缺省，则表示没有类型限制。eg:“application/x-shockwave-flash”“image/jpg” |
+| api| integer array  | 广告位支持的API 框架标准，如果没有任何值或缺省，则表示不支持任何API框架。eg:  |
 
-######备注:Imp.instl = 1，Banner 对象表示插屏广告素材;Imp.fullscreen = 1，Banner 对象表示全屏广告素材; Imp.instl = 0&& Imp.fullscreen = 0,Banner 对象表示横幅广告素材
+**备注:Imp.instl = 1，Banner 对象表示插屏广告素材;Imp.fullscreen = 1，Banner 对象表示全屏广告素材; Imp.instl = 0&& Imp.fullscreen = 0,Banner 对象表示横幅广告素材**
 
-##### Video 对象
+##### Video对象
 
 | 字段名称 | 类型 | 描述 |
 | --- | --- | --- |
@@ -118,14 +118,14 @@ BidRequest 请求是广告位请求广告的入口，由 SSP|ADX 按本文档中
 | protocols | integer array | 支持的协议类型。如果没有任何值或缺省，表示不支持任何特殊协议。取值参见:protocols |
 | ext | object | 扩展对象
 
-##### Video.Ext 对象
+##### Video.Ext对象
 
 | 字段名称 | 类型  | 描述 |
 | --- | --- | --- |
 | maxcreative | integer  | 支持创意数量，默认值为1。Vast Creatives 中的创意数量不大于该值。 |
 | rwvd | integer  | 是否激励视频广告;0: 不是，1: 是 |
 
-##### Audio 对象
+##### Audio对象
 
 | 字段名称 | 类型  | 描述 |
 | --- | --- | --- |
@@ -139,15 +139,14 @@ BidRequest 请求是广告位请求广告的入口，由 SSP|ADX 按本文档中
 | delivery | integer array| 支持的delivery methods。如果没有任何值或缺省，则表示支持所有delivery methods。取值参见:Delivery Methods |
 | protocols | integer array | 支持的协议类型。如果没有任何值或缺省，表示不支持任何特殊协议。取值参见:protocols |
 
-##### Native 对象
+##### Native对象
 
 | 字段名称 | 类型  | 描述 |
 | --- | --- |  --- |
-| request | string;required |  请求要求的原生广告规范 |
-| ver | integer | 原生广告规范版本 |
-| api | integer array | 广告位支持的API 框架标准。如果没有任何值或缺省，则表示不支持任何API框架。取值参见:API Frameworks |
+| request | string;required |  请求要求的原生广告规范，JSON对象结构参考：[Native_Request](#Request对象) |
+| ver | string | 广告规范版本，目前使用 1.0 |
 
-##### App 对象
+##### App对象
 
 | 字段名称 | 类型 | 描述 |
 | --- | --- | --- |
@@ -160,11 +159,11 @@ BidRequest 请求是广告位请求广告的入口，由 SSP|ADX 按本文档中
 | sectioncat | string array | 应用当前频道分类 | 
 | pagecat | string array | 应用当前页面分类 | 
 | ver | string  | APP 版本号 |
-| paid | integer  | 是否为付费 APP<br>0- 不是<br>1- 是<br>2- 应用内付费 |
+| paid | integer  | 是否为付费 APP<br>0- 不是<br>1- 是 |
 | publisher | object | 应用发布商详情 | 
 | keywords | string | APP 关键字，可以用英文逗号分隔多个 |
 
-##### Publisher 对象
+##### Publisher对象
 
 | 字段名称 | 类型 | 描述 |
 | --- | --- | --- |
@@ -173,7 +172,7 @@ BidRequest 请求是广告位请求广告的入口，由 SSP|ADX 按本文档中
 | cat | string array | Publisher 内容分类 |
 | domain | string | Publisher 主域名 |
 
-##### device 对象
+##### Device对象
 
 | 字段名称  | 类型  | 描述 |
 | --- | --- | --- |
@@ -182,7 +181,7 @@ BidRequest 请求是广告位请求广告的入口，由 SSP|ADX 按本文档中
 | dnt | integer | 0- 允许广告追踪<br>1- 不允许广告追踪 |
 | ip | string | 客户端IP地址。如果从客户端直接发起请求，该字段可填空字符串；如果从服务端发起请求，请填写客户端的IP |
 | ipv6 | string | ipv6 |
-| devicetype | integer | 设备类型<br>1- 手机<br>2- 平板 |
+| devicetype | integer | 设备类型<br>2- PC<br>4- Mobile<br>5- Tablet<br>6- Other |
 | make | string | 设备制造商 |
 | model | string | 设备型号 |
 | os | string | 设备操作系统，二选一填写 Android 或 iOS |
@@ -193,7 +192,7 @@ BidRequest 请求是广告位请求广告的入口，由 SSP|ADX 按本文档中
 | js | integer | 是否支持 Javascript 脚本<br>1-支持<br>0-不支持 |
 | language | string | 设备的语言设置,使用 `alpha-2/ISO 639-1` |
 | carrier | string | 设备使用的运营商：MCC+MNC的值。没有则为空字符串。参考 `http://en.wikipedia.org/wiki/Mobile_Network_Code` |
-| connectiontype | integer | 设备联网类型<br>1- wifi<br>2- 2G<br>3- 3G<br>4- 4G |
+| connectiontype | integer | 设备联网类型<br>0- Unknown<br>1- Ethernet<br>2- WIFI<br>3- Cellular Network<br>4- 3G<br>5- 3G<br>6- 4G |
 | ifa | string | 设备屏幕分辨率宽，单位为像素 |
 | didsha1 | string | 设备IMEI，使用SHA1 进行哈希 |
 | didmd5 | string | 设备IMEI，使用MD5 进行哈希 |
@@ -203,7 +202,7 @@ BidRequest 请求是广告位请求广告的入口，由 SSP|ADX 按本文档中
 | macmd5 | string | MAC 地址，使用MD5 进行哈希 |
 | ext | object  | 扩展对象 |
 
-##### Video.Ext 对象
+##### Video.Ext对象
 
 | 字段名称 | 类型  | 描述 |
 | --- | --- | --- |
@@ -218,7 +217,7 @@ BidRequest 请求是广告位请求广告的入口，由 SSP|ADX 按本文档中
 | density | float | 设备屏幕像素密度 |
 | orientation | integer | 设备屏幕方向<br>0- 竖向<br>1- 横向 |
 
-##### Geo 对象
+##### Geo对象
 
 | 字段名称 | 类别  | 描述 |
 | --- | --- | --- |
@@ -230,7 +229,7 @@ BidRequest 请求是广告位请求广告的入口，由 SSP|ADX 按本文档中
 | city | string | 城市，使用 `http://www.unece.org/cefact/locode/service/location.html` |
 | ufcoffset | integer | 本地时区，如: 中国为UTC+8 |
 
-##### user 对象信息
+##### User对象
 
 | 字段名称 | 类别  | 描述 |
 | --- | --- | --- |
@@ -239,34 +238,163 @@ BidRequest 请求是广告位请求广告的入口，由 SSP|ADX 按本文档中
 | gender | string | 性别<br>M- 男性<br>F- 女性<br>O- 其他<br>Null- 不确定 |
 | geo | object | 用户家庭位置 |
 
-### BidResponse 对象规范
+##### Request对象
 
-#### BidResponse 字段
+| 字段名称 | 类型  | 描述 |
+| --- | --- |  --- |
+| ver | string |  原生广告规范版本,默认 1.0 |
+| layout | integer;recommended | 原生广告布局ID，参考[Native Layout IDs](#原生广告布局IDs) |
+| plcmtcnt | integer;default:1 | 此布局中相同展示位置的数量 |
+| assets | object array;required | 创意格式信息，定义参见[Asset Object](#Asset对象) | 
+| ext | object | 扩展对象 | 
+
+##### Asset对象
+
+| 字段名称 | 类型  | 描述 |
+| --- | --- |  --- |
+| id | string;required |  asset ID |
+| required | integer;default:0 | 必须元素，设置为1 |
+| title | object | 标题对象，定义参见[Title Object](#Request_Title对象) |
+| img | object | 图像对象，定义参见[Image Object](#Request_Image对象) | 
+| video | object | 视频对象，定义参见[Video Object](#Request_Video对象) | 
+| data | object | 数据对象，定义参见[Data Object](#Request_Data对象) | 
+| ext | object | 扩展对象 | 
+
+##### Request_Title对象
+
+| 字段名称 | 类型  | 描述 |
+| --- | --- |  --- |
+| len | integer;required |  title对象元素最大长度 |
+| ext | object | 扩展对象 | 
+
+##### Request_Image对象
+
+| 字段名称 | 类型  | 描述 |
+| --- | --- |  --- |
+| type | integer | image元素的Type ID，定义参见[Image Asset Types](#Image Asset Types) |
+| w | integer;required |  请求宽度 |
+| wmin | integer;recommended |  请求的最小高度（以像素为单位）,支持等比例缩放 |
+| h | integer;required |  请求高度 |
+| hmin | integer;recommended |  请求的最小宽度（以像素为单位），支持等比例缩放 |
+| mimes | string array |  支持的素材类型，eg"image/jpg;image/gig" |
+| ext | object | 扩展对象 | 
+
+##### Request_Video对象
+
+| 字段名称 | 类型  | 描述 |
+| --- | --- |  --- |
+| mimes | string array |  支持的素材类型，eg"“video/x-flv;video/mp4" |
+| minduration | integer;required | 视频广告支持的最小时长；(以秒为单位) |
+| maxduration | integer;required |  视频广告支持的最大时长；(以秒为单位) |
+| protocols | integer array | 视频协议，eg "VAST 3.0" |
+| ext | object | 扩展对象 | 
+
+##### Request_Data对象
+
+| 字段名称 | 类型  | 描述 |
+| --- | --- |  --- |
+| type | integer | image元素的Type ID，定义参见[Data Asset Types](#Data Asset Types) |
+| len | integer;required |  response中文本的最大长度。 |
+| ext | object | 扩展对象 | 
+
+
+### BidResponse规范
+
+#### AdResponse对象
 
 | 字段名称 | 类型  | 描述 |
 | --- | --- | --- |
 | id | string | 对应请求中的唯一请求id |
-| nbr | integer | 无正式广告填充时返回，不填充的原因，详情见[不填充广告原因](#不填充广告原因) |
+| nbr | integer | 无正式广告填充时返回，不填充的原因，详情见[不填充广告原因](#不填充广告原因)，1.0版本不支持具体错误提示 |
 | seatbid | object array | 有广告填充时返回，广告信息 |
 | bidid | string | BidResponse 唯一标识，由DSP 生成 |
 
-##### SeatBid 对象
+##### SeatBid对象
 
 | 字段名称 | 类型  | 描述 |
 | --- | --- | --- |
 | bid | array of object | 广告信息 |
 | seat | string | 广告商id,目前为1 |
                                                                                 
-###### Bid 对象
+###### Bid对象
 | 字段名称 | 类型  | 描述 |
 | --- | --- | --- |
+| id | string | 用于分析一次bid请求日志和监测的唯一id|
 | impid | string | 对应请求中的曝光id |
 | cid | string | 创意id |
 | w | integer | 广告物料宽度，单位：像素 |
 | h | integer | 广告物料高度，单位：像素 |
 | nurl | string | Win Notice URL |
-| adm | string | 素材，详情见[素材格式](#素材格式)<br>图片类（HTML）：HTML<br>图片类（图片+落地页）：JSON(目前不支持)<br>原生：JSON |
+| adm | string | <br>图片类（HTML）：HTML<br>图片类（图片+落地页）：JSON(目前不支持)<br>原生：JSON<br>视频：VAST |
 | ext | object | 扩展字段 |
+
+##### Native Ad Creative JSON对象
+
+| 字段名称 | 类型  | 描述 |
+| --- | --- |  --- |
+| native | object;required |  原生顶级元素 |
+
+##### Native对象
+
+| 字段名称 | 类型  | 描述 |
+| --- | --- |  --- |
+| ver | string |  原生广告规范版本,默认 1.0 |
+| assets | object | 创意格式信息，定义参见[Asset Object](#Response_Asset对象) | 
+| link | object | 落地页对象,默认广告的落地页。如果assert中有link值，此处不生效；如果assert对象中没有，使用此处落地页 |
+| imptrackers | string array | 展示监测，可能多条 |
+| jstracker | string | 可选的JavaScript展示跟踪器 |
+| ext | object | 扩展对象 | 
+
+##### Response_Asset对象
+
+| 字段名称 | 类型  | 描述 |
+| --- | --- |  --- |
+| id | string;required |  asset ID |
+| required | integer;default:0 | 必须元素，设置为1 |
+| title | object | 标题对象，定义参见[Title Object](#Response_Title对象) |
+| img | object | 图像对象，定义参见[Image Object](#Response_Image对象) | 
+| video | object | 视频对象，定义参见[Video Object](#Response_Video对象) | 
+| data | object | 数据对象，定义参见[Data Object](#Response_Data对象) | 
+| link | object | 落地页,监测信息对象 |
+| ext | object | 扩展对象 | 
+
+##### Response_Title对象
+
+| 字段名称 | 类型  | 描述 |
+| --- | --- |  --- |
+| text | integer;required |  标题文本信息 |
+| ext | object | 扩展对象 | 
+
+##### Response_Image对象
+
+| 字段名称 | 类型  | 描述 |
+| --- | --- |  --- |
+| url | string | image url |
+| w | integer|  image 像素宽度 |
+| h | integer;required |  image像素高度 |
+| ext | object | 扩展对象 | 
+
+##### Response_Data对象
+
+| 字段名称 | 类型  | 描述 |
+| --- | --- |  --- |
+| value | string |  要显示的格式化数据字符串 |
+| ext | object | 扩展对象 | 
+
+##### Response_Video对象
+
+| 字段名称 | 类型  | 描述 |
+| --- | --- |  --- |
+| vasttag | string |  VAST xml |
+
+##### Link对象
+
+| 字段名称 | 类型  | 描述 |
+| --- | --- |  --- |
+| url | string |  落地页
+| clicktrackers | string array | 第三方跟踪链接的列表单击URL即触发，可能多条 |
+| fallback | string |  deeplink深层链接的后备网址。如果设备不支持url中给出的URL(deeplink地址)，则使用此选项。 |
+| ext | object | 扩展对象 | 
 
 ###### Bid.Ext 对象
 | 字段名称 | 类型  | 描述 |
@@ -304,6 +432,56 @@ BidRequest 请求是广告位请求广告的入口，由 SSP|ADX 按本文档中
 | {R_CLICK_DOWN_Y} | integer | 获取用户点击落下的相对Y坐标 |
 | {R_CLICK_UP_X}   | integer | 获取用户点击抬起的相对X坐标 |
 | {R_CLICK_UP_Y}   | integer | 获取用户点击抬起的相对Y坐标 |
+
+#### 图片素材类型
+
+| 值 | 名称 |
+| --- | --- |
+| 1 | XHTML Text Ad | 
+| 2 | XHTML Banner Ad | 
+| 3 | JavaScript Ad; must be valid XHTML (i.e., Script Tags Included) | 
+| 4 | iframe | 
+
+#### Image Asset Types
+
+| 类型 ID | 名称 | 描述 |
+| --- | --- | --- |
+| 1 | Icon | Icon 图片 |
+| 2 | Logo | 品牌/app 的Logo图片 |
+| 3 | Main | 广告主图 |
+| 4 | xxx | Reserved for Exchange specific usage numbered above 500 |
+
+#### Data Asset Types
+
+| 类型 ID | 名称 | 描述 & 数据格式 |
+| --- | --- | --- |
+| 1 | sponsored;text | 赞助商信息; text |
+| 2 | desc | 描述信息; text |
+| 3 | rating | 产品评级; number formatted as string |
+| 4 | likes | 产品社交评级或“喜欢”的数量; number formatted as string |
+| 5 | downloads | 产品下载量/安装量; number formatted as string |
+| 6 | price | 产品/应用/应用内购买的价格; number formatted as string |
+| 7 | saleprice | 产品折扣价格; number formatted as string |
+| 8 | phone | 手机号码; number formatted as string |
+| 9 | address | 地址; text |
+| 10 | desc2 | 产品补充描述; text |
+| 11 | displayurl | 显示文字广告的网址;  text |
+| 12 | ctatext | CTA描述 - 描述落地页URL的“号召性用语”按钮的描述性文本;  text |
+| 500+ | XXX | Reserved for Exchange specific usage numbered above 500 |
+
+####原生广告布局IDs
+[原生广告布局图](nativelayout.md)
+
+| Value | Decription  |
+| --- | --- |
+| 1 | Content Wall |
+| 2 | App Wall |
+| 3 | News Feed |
+| 4 | Chat List |
+| 5 | Carousel |
+| 6 | Content Stream |
+| 7 | Grid adjoining the content |
+| 500+ | Reserved for Exchange specific layouts |
 
 #### 不填充广告原因
 

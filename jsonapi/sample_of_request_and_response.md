@@ -2,18 +2,12 @@
 
 - [广告请求和返回json示例](#广告请求和返回json示例)
     - [Banner](#横幅)
-        - [Banner请求示例](#Site流量)
-        - [Banner请求示例](#APP流量)
-        - [Banner返回示例（HTML）](#Banner返回示例html)
+        - [Banner请求示例](#Banner广告请求示例（Site）)
+        - [Banner请求示例](#Banner广告请求示例（Mobile）)
+        - [Banner返回示例（HTML）](#横幅|插屏|全屏广告返回示例(HTML))
     - [原生](#原生)
-        - [Native请求示例](#原生请求示例)
-        - [Native广告返回示例](#原生广告返回示例)
-
-- 可以使用的测试参数：
-
-> | tagid | appid | os | 广告位类型 | 返回格式 | 交互类型 |
-> | --- | --- | --- | --- | --- | --- |
-> | 23448 | 30087 | Android | 横幅 | html | 网页 |
+        - [Native请求示例](#Native请求示例)
+        - [Native广告返回示例](#Native广告返回示例)
 
 > - 使用测试参数获取的广告，仅供查看效果使用，正式上线后请切换为正式的id，否则将不会产生任何请求，展示，点击，收益等数据。
 
@@ -21,7 +15,7 @@
 
 > 开屏、插屏和横幅广告的请求、返回结构类似，不另外举例
 
-### Banner广告请求示例（Site流量）
+### Banner广告请求示例（Site）
 
 ```json
 
@@ -110,6 +104,9 @@
                 "region": "CA", 
                 "city": "Los Angeles", 
                 "zip": "90049" 
+           },
+           "ext" : {
+           
            }
   }, 
   "user": { 
@@ -121,7 +118,7 @@
 
 ```
 
-### 横幅|插屏|全屏广告返回示例（HTML）
+### 横幅|插屏|全屏广告返回示例(HTML)
 
 ```json
 {
@@ -198,7 +195,7 @@
             "instl": 0, 
             "tagid": "agltb3B1Yi1pbmNyDQsSBFNpdGUY7fD0FAw", 
             "native": { 
-                "request": "{\"native\":{\"ver\":\"1.0\",\"assets\":[ ... ]}}", 
+                "request": "{\"ver\":\"1.0\",\"assets\":[ ... ]}", 
                 "ver": "1.0", 
                 "api": [ 1 ]   
              }
@@ -255,7 +252,7 @@
 "native":{
           "ver":"1.1",
           "request":{
-                "ver":"1.1",
+                "ver":"1.0",
                 "layout":6,
                 "plcmtcnt":1,
                 "assets":[
