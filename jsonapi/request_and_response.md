@@ -1,10 +1,10 @@
-# SSP 对接文档协议
+# SSP对接文档协议
 
-- [SSP 对接文档协议](#ssp-对接文档协议)
+- [SSP 对接文档协议](#SSP对接文档协议)
     - [文档说明](#文档说明)
     - [接入准备](#接入准备)
     - [接入说明](#接入说明)
-        - [请求 URL](#请求-url)
+        - [请求 URL](#请求URL)
         - [通信方式及编码](#通信方式及编码)
         - [广告请求](#BidRequest规范)
             - [请求头](#Http请求头设置)
@@ -19,7 +19,7 @@
                 - [seatbid 对象信息](#SeatBid对象)
                     - [bid 对象信息](#Bid对象)
             - [上报地址宏替换信息](#上报地址宏替换信息)
-            - [不填充广告原因](#不填充广告原因)
+            - [不填充广告原因](#响应错误编码表)
 
 ## 文档说明
 
@@ -31,7 +31,7 @@
 
 ## 接入说明
 
-### 请求 URL
+### 请求URL
 
 当需要请求广告时，发送一个 HTTP POST 请求到下面的地址`http://hostname.com/dsp`
 
@@ -276,7 +276,7 @@ BidRequest 请求是广告位请求广告的入口，由 SSP|ADX 按本文档中
 | wmin | integer;recommended |  请求的最小高度（以像素为单位）,支持等比例缩放 |
 | h | integer;required |  请求高度 |
 | hmin | integer;recommended |  请求的最小宽度（以像素为单位），支持等比例缩放 |
-| mimes | string array |  支持的素材类型，eg"image/jpg;image/gig" |
+| mimes | string array |  支持的素材类型，eg"image/jpg;image/gif" |
 | ext | object | 扩展对象 | 
 
 ##### Request_Video对象
@@ -483,43 +483,60 @@ BidRequest 请求是广告位请求广告的入口，由 SSP|ADX 按本文档中
 | 7 | Grid adjoining the content |
 | 500+ | Reserved for Exchange specific layouts |
 
-#### 不填充广告原因
+#### 响应错误编码表
+
+##### 主级错误编码
 
 | 状态码 | 说明 |
 | --- | --- |
-| 101 | 返回测试广告 |
-| 102 | 无测试广告且无正式广告返回 |
-| 104 | BidRequest 解析 JSON 失败 |
-| 105 | 广告位id无效 |
-| 302 | device.androidid 缺失 |
-| 304 | device.idfa 缺失 |
-| 311 | app.id 缺失 |
-| 312 | app.name 缺失 |
-| 313 | app.bundle 缺失 |
-| 314 | app.ver 缺失 |
-| 315 | device.os 缺失 |
-| 316 | device.os 无效 |
-| 317 | device.osv 缺失 |
-| 318 | device.carrier 缺失 |
-| 320 | device.connectiontype 缺失 |
-| 321 | device.connectiontype 无效 |
-| 322 | device.ip 缺失 |
-| 323 | device.make 缺失 |
-| 324 | device.model 缺失 |
-| 325 | device.w 缺失 |
-| 326 | device.h 缺失 |
-| 327 | device.devicetype 缺失 |
-| 328 | device.devicetype 无效 |
-| 341 | imp.instl 缺失 |
-| 342 | imp.instl 无效 |
-| 351 | 请求id 缺失 |
-| 352 | 曝光id 缺失 |
-| 353 | device.ua 缺失 |
-| 354 | device.ppi 缺失 |
-| 355 | device.density 缺失 |
-| 410 | device.anid 格式错误 |
-| 411 | device.imei 格式错误 |
-| 412 | device.ip 格式错误 |
-| 414 | device.idfa 格式错误 |
+| 202 | 返回测试广告 |
+| 204 | 无测试广告且无正式广告返回 |
+| 400 | 请求参数错误， 详情参加[400子级错误编码](#400子级错误编码)
+| 404 | 请求内容不存在，详情参见: [404 子级错误编码](#404子级错误编码)。
+
+##### 400子级错误编码
+| 状态码 | 说明 |
+| --- | --- |
+| 0 | 其他错误 |
+| 1 | 广告位id无效 |
+| 2 | device.androidid 缺失 |
+| 3 | device.idfa 缺失 |
+| 4 | app.id 缺失 |
+| 5 | app.name 缺失 |
+| 6 | app.bundle 缺失 |
+| 7 | app.ver 缺失 |
+| 8 | os 缺失 |
+| 9 | os 无效 |
+| 10 | osv 缺失 |
+| 11 | carrier 缺失 |
+| 12 | connectiontype 缺失 |
+| 13 | connectiontype 无效 |
+| 14 | ip 缺失 |
+| 15 | make 缺失 |
+| 16 | model 缺失 |
+| 17 | device.w 缺失 |
+| 18 | device.h 缺失 |
+| 19 | devicetype 缺失 |
+| 20 | devicetype 无效 |
+| 21 | instl 缺失 |
+| 22 | instl 无效 |
+| 23 | 请求id 缺失 |
+| 24 | 曝光id 缺失 |
+| 25 | ua 缺失 |
+| 26 | ppi 缺失 |
+| 27 | density 缺失 |
+| 28 | anid 格式错误 |
+| 29 | imei 格式错误 |
+| 30 | ip 格式错误 |
+| 31 | idfa 格式错误 |
+| 32 | BidRequest 解析 JSON 失败 |
 | 500 | 低质量流量 |
 | 900 | ADX 广告服务器内部错误，请联系平台 |
+
+##### 404子级错误编码
+
+| 错误编号 | 错误描述 | 
+| --- | --- |
+| 1 | 广告位不存在 |
+| 2 | appid 不匹配 |
+| 3 | app bundle不匹配 |
