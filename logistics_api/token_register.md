@@ -33,7 +33,7 @@
   
   ``` json
   {
-    "account_id" : "AAA"
+    "account_id" : "AAA",
     "logistics" : "ABCD",
     "random" : "43dssowcw",
     "secret_key" : "4c9d491c90fafc1e3bb34db8263116b2" 
