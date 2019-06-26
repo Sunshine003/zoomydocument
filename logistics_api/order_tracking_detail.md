@@ -69,7 +69,7 @@
 | --- | --- |  --- |
 |order_status | string | 订单状态 |
 |order_type | string | 订单类型 |
-|scan_list | string | 货态详情 |
+|scan_list | string | 货态扫描ScanList |
 |create_order_time | string | 订单创建时间 |
 |order_no | string | 订单号 |
 |express_no |   string | 运单号 |
@@ -88,7 +88,7 @@
     "sn_str": "1000026",
     "orders_detail": [
         {
-            "order_status": "Updating",
+            "order_status": "收件",
             "order_type": "1",
             "scan_list": "[{\"date\":\"05-01-2016 10:41\",\"desc\":\"SHIPMENT RECEIVED BY JNE COUNTER OFFICER AT [JAKARTA]\"}]",
             "create_order_time": "2019-06-25 18:56:03",

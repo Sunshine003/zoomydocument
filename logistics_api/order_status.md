@@ -107,9 +107,9 @@
             "order_type": "1",
             "order_no": "1000025",
             "express_no": "CGKIT00002427416",
-            "goods_status": "拒收"
-            "goods_status_time": "2019-08-26 15:46:53"
-            "latest_scan_status": "末端派件"
+            "goods_status": "拒收",
+            "goods_status_time": "2019-08-26 15:46:53",
+            "latest_scan_status": "末端派件",
             "shipper": {
                 "name": "TEST PENGIRIM",
                 "email": "892818700@qq.com",
@@ -134,13 +134,13 @@
                 "area": "JAKARTA",
                 "address": "TEST ALAMAT PENGIRIM"
             },
-            "goods_name_cn": "AAAA+BBBBB",
-            "goods_name_en": "AAAA+CCCCC",
-            "goods_qty": 1,
+            "goods_name_cn": "AAAA_1&BBBBB_2",
+            "goods_name_en": "AAAA_1&BBBBB_2",
+            "goods_qty": 3,
             "weight": "100",
             "cod_amount": {"value":1, "uint": "IDR"},
             "insurance_amount": {"value":1, "uint": "IDR"},
-            "collect_amount": {"value":1, "uint": "IDR"}
+            "collect_amount": {"value":1, "uint": "IDR"},
             "service_type": "1",
             "sender_order_time": "2019-6-25 18:56:03",
             "old_order_no": "",

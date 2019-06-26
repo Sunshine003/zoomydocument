@@ -39,11 +39,11 @@
 |goods_name_cn | string | 中文品名,格式“商品名称1_SKU_数量&商品名称2_SKU_数量” |
 |goods_name_en | string | 英文名称,格式“商品名称1_SKU_数量&商品名称2_SKU_数量” |
 |goods_qty | int | 商品汇总数量 |
-|weight | double,必填 | 订单总重量 |
-|cod_amount | Price,必填 | COD代收款金额 |
+|weight | float64,必填 | 订单重量 |
+|cod_amount | Price,必填 | COD代收货款 |
 |insurance_amount | Price |  保险金额 |
 |collect_amount | Price |  到付运费金额 |
-|pay_type |  string | 运费付款方式PP(月结)/CA(票结)/CC(到付) |
+|pay_type | string | 运费付款方式PP(月结)/CA(票结)/CC(到付) |
 |service_type | string | 服务类型，默认"1",国际件 |
 |remark | string | 订单备注 |
 |package_pcs |  string,必填 | 商品包裹数量，系统默认是 "1" |
@@ -59,7 +59,7 @@
 |phone | string | 发件人电话号码 |
 |email | string | 发件人邮箱 |
 |postcode | string,必填 | 发件人邮政编码 |
-|country_code | string | 发件人国家 |
+|country | string | 发件人国家 |
 |prov | string,必填 | 发件人省 |
 |city | string,必填 | 发件人城市 |
 |area | string,必填 | 发件人地区 |
@@ -74,7 +74,7 @@
 |phone | string | 收件人电话号码 |
 |email | string | 收件人邮箱 |
 |postcode | string,必填 | 收件人邮政编码 |
-|country_code | string | 收件人国家 |
+|country | string | 收件人国家 |
 |prov | string,必填 | 收件人省 |
 |city | string,必填 | 收件人城市 |
 |area | string,必填 | 收件人地区 |
@@ -102,10 +102,10 @@
     "order_no": "1000025",
     "shipper": {
         "name": "TEST PENGIRIM",
-        "email": "892818700@qq.com",
-        "postcode": "80552",
         "mobile": " 6281276497866",
         "phone": " 6281111111111",
+        "email": "892818700@qq.com",
+        "postcode": "80552",
         "country": "CHN",
         "prov": "DKI JAKARTA",
         "city": "JAKARTA",
@@ -126,7 +126,7 @@
     },
    
     "order_type": "1",
-    "goods_type": "GC",
+    "goods_type": "1",
     "goods_name_cn": "AAAA_1&BBBBB_1",
     "goods_name_en": "AAAA_1&BBBBB_1",
     "goods_qty": 2,
@@ -150,8 +150,8 @@
 
 | 字段名称 | 类型 |  描述 |
 | --- | --- |  --- |
-|status | string | 成功为success 失败为false |
-|msg | string | 错误提示信息 |
+|status | string | 成功为success 失败为failure |
+|message | string | 错误提示信息 |
 |detail |  Detail | 订单明细内容 |
 
 #### Detail对象
@@ -214,7 +214,7 @@
             "area": "JAKARTA",
             "address": "TEST ALAMAT PENGIRIM"
         },
-        "goods_type": "",
+        "goods_type": "1",
         "goods_name_cn": "AAAA+BBBBB",
         "goods_name_en": "AAAA+CCCCC",
         "goods_qty": 1,
@@ -239,7 +239,7 @@
 ``` json
 {
     "status": "failure",
-    "msg": "Transaction no. already exists, please try with another",
+    "message": "Transaction no. already exists, please try with another",
     "detail": {
         "express_no": "0109401900020306",
     }
