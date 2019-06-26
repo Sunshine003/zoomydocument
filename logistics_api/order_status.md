@@ -19,7 +19,7 @@
   
   Content-Type - application/json
   
-  token - 4c9d491c90fafc1e3bb34db8263116b2
+  token - 客户已经注册成功的token信息
 
 - Body Json格式数据:
 
