@@ -11,7 +11,7 @@
 
 ### 请求信息
 
-- 请求地址：http(s)://api.flowery-island.com/logistics/api/orders_status/list
+- 请求地址：http(s)://api.flowery-island.com/orders
 
 - 请求类型：POST
 
@@ -77,8 +77,8 @@
 |goods_name_cn | string | 中文品名,格式“商品名称1_数量&商品名称2_数量” |
 |goods_name_en | string | 英文名称,格式“商品名称1_数量&商品名称2_数量” |
 |goods_qty | int | 商品汇总数量 |
-|weight | float64 | 订单重量 |
-|billing_weight | float64 | 计费重量 |
+|weight | string | 订单重量 |
+|billing_weight | string | 计费重量 |
 |cod_amount | Price | COD代收款金额 |
 |insurance_amount | Price | 保险金额 |
 |collect_amount | Price | 到付运费金额 |

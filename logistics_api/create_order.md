@@ -39,7 +39,7 @@
 |goods_name_cn | string | 中文品名,格式“商品名称1_SKU_数量&商品名称2_SKU_数量” |
 |goods_name_en | string | 英文名称,格式“商品名称1_SKU_数量&商品名称2_SKU_数量” |
 |goods_qty | int | 商品汇总数量 |
-|weight | float64,必填 | 订单重量 |
+|weight | string,必填 | 订单重量 |
 |cod_amount | Price,必填 | COD代收货款 |
 |insurance_amount | Price |  保险金额 |
 |collect_amount | Price |  到付运费金额 |
@@ -130,7 +130,7 @@
     "goods_name_cn": "AAAA_1&BBBBB_1",
     "goods_name_en": "AAAA_1&BBBBB_1",
     "goods_qty": 2,
-    "weight": 100,
+    "weight": "100",
     "cod_amount": {"value":1, "uint": "IDR"},
     "insurance_amount": {"value":1, "uint": "IDR"},
     "collect_amount": {"value":1, "uint": "IDR"},
@@ -168,7 +168,7 @@
 |goods_name_cn | string | 中文品名,格式“商品名称1_数量&商品名称2_数量” |
 |goods_name_en | string | 英文名称,格式“商品名称1_数量&商品名称2_数量” |
 |goods_qty | int | 商品汇总数量 |
-|weight |  float64 | 订单总重量 |
+|weight |  string | 订单总重量 |
 |cod_amount | Price | COD代收款金额 |
 |insurance_amount | Price |  保险金额 |
 |collect_amount | Price |  到付运费金额 |
@@ -218,10 +218,10 @@
         "goods_name_cn": "AAAA+BBBBB",
         "goods_name_en": "AAAA+CCCCC",
         "goods_qty": 1,
-        "weight": 100,
-        "cod_amount": 1,
-        "insurance_price": 1,
-        "price_currency": "IDR",
+        "weight": "100",
+        "cod_amount": {"value":1, "uint": "IDR"},
+        "insurance_price": {"value":1, "uint": "IDR"},
+        "collect_amount": {"value":1, "uint": "IDR"},
         "pay_type": "PP",
         "package_pcs": "1",
         "remark": "TESTING, JANGAN DILANJUT!!!",

@@ -10,7 +10,7 @@
 
 ### 请求信息
 
-- 请求地址：http(s)://api.flowery-island.com/logistics/api/token
+- 请求地址：http(s)://logistics-api.flowery-island.com/token
 
 - 请求类型：POST
 
